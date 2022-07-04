@@ -22,7 +22,7 @@ class PlanProHelper(object):
             container = self.get_container_by_fachdaten_id(i)
             signals = container.Signal
             for signal in signals:
-                if signal.Signal_Real.Signal_Real_Aktiv is None or \
+                if signal.Signal_Real is None or signal.Signal_Real.Signal_Real_Aktiv is None or \
                    (signal.Signal_Real.Signal_Real_Aktiv.Signal_Funktion.Wert != "Einfahr_Signal" and
                     signal.Signal_Real.Signal_Real_Aktiv.Signal_Funktion.Wert != "Ausfahr_Signal" and
                     signal.Signal_Real.Signal_Real_Aktiv.Signal_Funktion.Wert != "Block_Signal"):
