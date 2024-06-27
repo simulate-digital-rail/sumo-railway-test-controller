@@ -29,7 +29,13 @@ class Point(object):
             return False
         if not self.is_point:
             return False
-        all_uuids = [self.head.top_kante_uuid, self.left.top_kante_uuid, self.right.top_kante_uuid]
+        all_uuids = []
+        if self.head is not None:
+            all_uuids.append(self.head.top_kante_uuid)
+        if self.left is not None:
+            all_uuids.append(self.left.top_kante_uuid)
+        if self.right is not None:
+            all_uuids.append(self.right.top_kante_uuid)
         return top_kante_uuid_1 in all_uuids and top_kante_uuid_2 in all_uuids
 
     def get_necessary_orientation(self, track_1, track_2):

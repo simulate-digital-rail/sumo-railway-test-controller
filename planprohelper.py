@@ -1,5 +1,7 @@
 import planpromodel
 from model import Signal, Route
+from railwayroutegenerator import generator
+import uuid
 
 x_shift = 4533770.0
 y_shift = 5625780.0
@@ -8,6 +10,7 @@ y_shift = 5625780.0
 class PlanProHelper(object):
 
     def __init__(self, plan_pro_file_name):
+        self.plan_pro_file_name = plan_pro_file_name
         self.root_object = planpromodel.parse(plan_pro_file_name + ".ppxml", silence=True)
 
     def get_number_of_fachdaten(self):
@@ -37,7 +40,7 @@ class PlanProHelper(object):
                 all_signals.append(signal_obj)
         return all_signals
 
-    def get_all_routes(self, signals=None):
+    def get_all_routes(self, signals=None, generate_routes=True):
         if signals is None:
             signals = self.get_all_signals()
 
@@ -48,28 +51,53 @@ class PlanProHelper(object):
             return None
 
         all_routes = []
-        for i in range(0, self.get_number_of_fachdaten()):
-            container = self.get_container_by_fachdaten_id(i)
-            routes = container.Fstr_Fahrweg
+
+        if generate_routes:
+            print("Start generation")
+            routes = generator.generate_from_planpro(self.plan_pro_file_name, output_format="python-objects")
+            print("End generation")
             for route in routes:
-                start_signal_uuid = route.ID_Start.Wert
-                end_signal_uuid = route.ID_Ziel.Wert
-                start_signal = find_signal_by_uuid(start_signal_uuid)
-                end_signal = find_signal_by_uuid(end_signal_uuid)
+                start_signal = find_signal_by_uuid(route.start_signal.uuid)
+                end_signal = find_signal_by_uuid(route.end_signal.uuid)
                 if start_signal is None or end_signal is None:
+                    continue
+                if start_signal.id == "99R" and end_signal.id == "99Q":
                     continue
 
                 top_kanten_uuids = []
-                for teilbereich in route.Bereich_Objekt_Teilbereich:
-                    top_kanten_uuids.append(teilbereich.ID_TOP_Kante.Wert)
+                for edge in route.edges:
+                    top_kanten_uuids.append(edge.uuid)
 
-                route_uuid = route.Identitaet.Wert
+                route_uuid = f"generated-route_{str(uuid.uuid4())}"
                 route_id = f"route_{start_signal.id.upper()}-{end_signal.id.upper()}"
                 route_obj = Route(route_uuid, route_id)
                 route_obj.start_signal = start_signal
                 route_obj.end_signal = end_signal
                 route_obj.top_kanten_uuids = top_kanten_uuids
                 all_routes.append(route_obj)
+        else:
+            for i in range(0, self.get_number_of_fachdaten()):
+                container = self.get_container_by_fachdaten_id(i)
+                routes = container.Fstr_Fahrweg
+                for route in routes:
+                    start_signal_uuid = route.ID_Start.Wert
+                    end_signal_uuid = route.ID_Ziel.Wert
+                    start_signal = find_signal_by_uuid(start_signal_uuid)
+                    end_signal = find_signal_by_uuid(end_signal_uuid)
+                    if start_signal is None or end_signal is None:
+                        continue
+
+                    top_kanten_uuids = []
+                    for teilbereich in route.Bereich_Objekt_Teilbereich:
+                        top_kanten_uuids.append(teilbereich.ID_TOP_Kante.Wert)
+
+                    route_uuid = route.Identitaet.Wert
+                    route_id = f"route_{start_signal.id.upper()}-{end_signal.id.upper()}"
+                    route_obj = Route(route_uuid, route_id)
+                    route_obj.start_signal = start_signal
+                    route_obj.end_signal = end_signal
+                    route_obj.top_kanten_uuids = top_kanten_uuids
+                    all_routes.append(route_obj)
         return all_routes
 
     def get_all_top_knoten(self):

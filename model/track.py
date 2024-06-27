@@ -6,7 +6,7 @@ class Track(object):
         self.total_length = 0
         self.state = dict()  # Either free, reserved or occupied
         self.signals = []
-        self.lengths = dict()  # Segment id to segment length
+        self.lengths = dict()  # Segment id to tracksegment.py length
         self.left_point = None
         self.right_point = None
 

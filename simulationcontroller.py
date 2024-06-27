@@ -3,6 +3,8 @@ import time
 from model import Train, TrainOperation
 from schedulecontroller import ScheduleController
 
+warning_counter = 0
+
 
 class SimulationController(object):
 
@@ -64,6 +66,7 @@ class SimulationController(object):
                     print(f"No route from {start_signal} to {end_signal} found.")
 
     def after_each_simulation_step(self):
+        global warning_counter
         cur_time = int(traci.simulation.getTime())
 
         # Update train positions
@@ -93,6 +96,7 @@ class SimulationController(object):
 
         # Remove trains that disappear
         for remove_train in to_remove:
+            print(f"Remove train because disappear {remove_train.name}")
             self.remove_train_from_simulation(remove_train)
 
         # Update train routes
@@ -132,8 +136,10 @@ class SimulationController(object):
                 if cur_time >= first_operation.departure:  # It's time to depart
                     route_free = self.interlocking.can_route_be_set(first_operation.route)
                     if not route_free:
-                        print(f"Route {first_operation.route.to_string()} currently (partially) blocked."
-                              f" {train.name} has to wait.")
+                        if warning_counter % 30 == 0:
+                            print(f"Route {first_operation.route.to_string()} currently (partially) blocked."
+                                  f" {train.name} has to wait.")
+                        warning_counter = warning_counter + 1
                     else:
                         print(f"Create train {train.name} on route {first_operation.route.to_string()}")
                         self.interlocking.set_route(first_operation.route, train)
