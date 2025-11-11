@@ -1,0 +1,17 @@
+[
+  {
+    "name": "RB101",
+    "type": "regio",
+    "min_time_in_station": 60,
+    "operations": [
+      {
+        "from": "A-Dorf",
+        "from_platform": 1,
+        "to": "B-Stadt",
+        "to_platform": 1,
+        "departure": "10:00:00",
+        "arrival": "10:30:00"
+      }
+    ]
+  }
+]

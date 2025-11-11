@@ -1,0 +1,63 @@
+[
+  {
+    "name": "RB101",
+    "type": "regio",
+    "min_time_in_station": 60,
+    "operations": [
+      {
+        "from": "A-Dorf",
+        "from_platform": 1,
+        "to": "B-Stadt",
+        "to_platform": 1,
+        "departure": "10:00:00",
+        "arrival": "10:00:30"
+      },
+      {
+        "from": "B-Stadt",
+        "from_platform": 1,
+        "to": "C-Heim",
+        "to_platform": 1,
+        "departure": "10:01:30",
+        "arrival": "10:02:00"
+      }
+    ]
+  },
+  {
+    "name": "ICE200",
+    "type": "ice",
+    "min_time_in_station": 60,
+    "operations": [
+      {
+        "from": "C-Heim",
+        "from_platform": 1,
+        "to": "A-Dorf",
+        "to_platform": 1,
+        "departure": "10:00:30",
+        "arrival": "10:01:30"
+      }
+    ]
+  },
+  {
+    "name": "RB102",
+    "type": "regio",
+    "min_time_in_station": 60,
+    "operations": [
+      {
+        "from": "C-Heim",
+        "from_platform": 1,
+        "to": "B-Stadt",
+        "to_platform": 2,
+        "departure": "10:01:45",
+        "arrival": "10:02:30"
+      },
+      {
+        "from": "B-Stadt",
+        "from_platform": 2,
+        "to": "A-Dorf",
+        "to_platform": 1,
+        "departure": "10:03:30",
+        "arrival": "10:04:00"
+      }
+    ]
+  }
+]

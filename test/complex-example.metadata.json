@@ -1,0 +1,176 @@
+{
+  "stations": {
+    "A-Dorf": {
+      "platforms": {
+        "1": [
+          {
+            "to": "B-Stadt",
+            "to_platform": 1,
+            "routes": [
+              {
+                "start_signal": "60AS20",
+                "end_signal": "60ES1"
+              },
+              {
+                "start_signal": "60ES1",
+                "end_signal": "60AS1"
+              }
+            ]
+          },
+          {
+            "to": "B-Stadt",
+            "to_platform": 2,
+            "routes": [
+              {
+                "start_signal": "60AS20",
+                "end_signal": "60ES1"
+              },
+              {
+                "start_signal": "60ES1",
+                "end_signal": "60AS2"
+              }
+            ]
+          },
+          {
+            "to": "C-Heim",
+            "to_platform": 1,
+            "routes": [
+              {
+                "start_signal": "60AS20",
+                "end_signal": "60BS2"
+              },
+              {
+                "start_signal": "60BS2",
+                "end_signal": "60ES10"
+              },
+              {
+                "start_signal": "60ES10",
+                "end_signal": "60AS10"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "B-Stadt": {
+      "platforms": {
+        "1": [
+          {
+            "to": "A-Dorf",
+            "to_platform": 1,
+            "routes": [
+              {
+                "start_signal": "60AS3",
+                "end_signal": "60ES21"
+              },
+              {
+                "start_signal": "60ES21",
+                "end_signal": "60AS21"
+              }
+            ]
+          },
+          {
+            "to": "C-Heim",
+            "to_platform": 1,
+            "routes": [
+              {
+                "start_signal": "60AS1",
+                "end_signal": "60ES10"
+              },
+              {
+                "start_signal": "60ES10",
+                "end_signal": "60AS10"
+              }
+            ]
+          }
+        ],
+        "2": [
+          {
+            "to": "A-Dorf",
+            "to_platform": 1,
+            "routes": [
+              {
+                "start_signal": "60AS4",
+                "end_signal": "60ES21"
+              },
+              {
+                "start_signal": "60ES21",
+                "end_signal": "60AS21"
+              }
+            ]
+          },
+          {
+            "to": "C-Heim",
+            "to_platform": 1,
+            "routes": [
+              {
+                "start_signal": "60AS2",
+                "end_signal": "60ES10"
+              },
+              {
+                "start_signal": "60ES10",
+                "end_signal": "60AS10"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "C-Heim": {
+      "platforms": {
+        "1": [
+          {
+            "to": "A-Dorf",
+            "to_platform": 1,
+            "routes": [
+              {
+                "start_signal": "60AS11",
+                "end_signal": "60BS5"
+              },
+              {
+                "start_signal": "60BS5",
+                "end_signal": "60BS6"
+              },
+              {
+                "start_signal": "60BS6",
+                "end_signal": "60ES21"
+              },
+              {
+                "start_signal": "60ES21",
+                "end_signal": "60AS21"
+              }
+            ]
+          },
+          {
+            "to": "B-Stadt",
+            "to_platform": 1,
+            "routes": [
+              {
+                "start_signal": "60AS11",
+                "end_signal": "60ES2"
+              },
+              {
+                "start_signal": "60ES2",
+                "end_signal": "60AS3"
+              }
+            ]
+          },
+          {
+            "to": "B-Stadt",
+            "to_platform": 2,
+            "routes": [
+              {
+                "start_signal": "60AS11",
+                "end_signal": "60ES2"
+              },
+              {
+                "start_signal": "60ES2",
+                "end_signal": "60AS4"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
