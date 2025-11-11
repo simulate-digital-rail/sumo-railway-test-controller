@@ -1,25 +1,30 @@
+from typing import Optional
+from .route import Route
+from .trainoperation import TrainOperation
+
+
 class Train(object):
 
     def __init__(self, name):
         self.name = name
-        self.type = "regio"
+        self.train_type = "regio"
         self.min_time_in_station = 0
-        self.max_speed = 70
+        self.max_speed: float = 70
 
         self.operations = []
         self.operation_counter = 0
 
         self.in_simulation = False
         self.current_position = "undefined"
-        self.current_route = None
+        self.current_route: Optional[Route] = None
 
-    def has_more_operations(self):
+    def has_more_operations(self) -> bool:
         return self.operation_counter + 1 < len(self.operations)
 
-    def get_current_operation(self):
+    def get_current_operation(self) -> TrainOperation:
         return self.operations[self.operation_counter]
 
-    def get_next_operation(self):
+    def get_next_operation(self) -> TrainOperation:
         return self.operations[self.operation_counter + 1]
 
     def processed_operation(self):

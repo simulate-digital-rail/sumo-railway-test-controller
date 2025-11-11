@@ -1,5 +1,8 @@
 import time
 import datetime
+from typing import Optional, List
+from .station import Station
+from .route import Route
 
 base_time = "10:00:00"
 
@@ -7,18 +10,28 @@ base_time = "10:00:00"
 class TrainOperation(object):
 
     def __init__(self):
-        self.from_station = None
+        self.from_station: Station | None = None
         self.from_platform = 0
-        self.to_station = None
+        self.to_station: Station | None  = None
         self.to_platform = 0
-        self.departure = None
+        self.departure = -1
         self.departed = False
         self.planned_departure = -1
         self.actual_departure = -1
         self.arrived = False
-        self.arrival = None
+        self.arrival = -1
         self.actual_arrival = -1
-        self.route = None
+        self.routes: List[Route] = []
+        self.current_route_counter = 0
+
+    def has_next_route(self) -> bool:
+        return self.current_route_counter + 1 < len(self.routes)
+    
+    def get_next_route(self) -> Route:
+        return self.routes[self.current_route_counter + 1]
+    
+    def get_current_route(self) -> Route:
+        return self.routes[self.current_route_counter]
 
     def set_departure(self, departure):
         self.departure = self.recalc_timestamp(departure)
